@@ -47,7 +47,7 @@ class TrafficNavigationSystem:
                     path.append(current)
                     current = came_from[current]
                 path.append(start)
-                return path[::-1]  # Return reversed path
+                return path[::-1]  
 
             for neighbor in self.neighbors(current):
                 tentative_g_score = g_score[current] + self.get_cost(current, neighbor)
@@ -59,7 +59,7 @@ class TrafficNavigationSystem:
                     if neighbor not in [i[1] for i in open_set]:
                         heapq.heappush(open_set, (f_score[neighbor], neighbor))
 
-        return None  # No path found
+        return None  
 
     def plot_map(self, path):
         map_ = folium.Map(location=path[0], zoom_start=13)
@@ -73,7 +73,7 @@ class TrafficNavigationSystem:
         """Fetch real-world distance using OpenRouteService API."""
         try:
             route = client.directions(
-                coordinates=[start_coords[::-1], end_coords[::-1]],  # Reverse lat/lon for API
+                coordinates=[start_coords[::-1], end_coords[::-1]],  
                 profile="driving-car",
                 format="geojson",
             )
@@ -81,7 +81,7 @@ class TrafficNavigationSystem:
             return distance
         except Exception as e:
             print("Error fetching real-world distance:", e)
-            return None  # Return None if there's an error
+            return None  
     
 
 # Initialize the Traffic Navigation System
